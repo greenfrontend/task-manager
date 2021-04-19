@@ -9,7 +9,6 @@ FactoryBot.define do
     "avatar#{n}.jpg"
   end
   sequence :expired_at do |_n|
-    week_in_seconds = 7 * 24 * 60 * 60
-    Time.now + week_in_seconds
+    Time.now + 1.week.seconds
   end
 end
