@@ -13,3 +13,22 @@
  *= require_tree .
  *= require_self
  */
+//=require material-design-lite/material.min.css
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#main {
+  flex: 1 0 auto;
+}
+
+.page-content {
+  padding: 20px;
+}
+
+.page-content .mdl-textfield {
+  display: block;
+}
