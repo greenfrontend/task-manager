@@ -1,4 +1,4 @@
-= simple_form_for @user, as: :user, url: admin_users_path(@user) do |f|
+= simple_form_for @user, as: :user, url: locals[:url] do |f|
   h4 = locals[:form_title]
   p
     = f.input :first_name
