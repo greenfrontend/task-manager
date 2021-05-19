@@ -2,7 +2,8 @@ require 'test_helper'
 
 class TaskTest < ActiveSupport::TestCase
   test 'create' do
-    task = create(:task)
+    author = create(:user)
+    task = create(:task, author: author)
     assert task.persisted?
   end
 end
