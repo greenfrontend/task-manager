@@ -4,6 +4,7 @@ import '@lourenci/react-kanban/dist/styles.css';
 import { propOr } from 'ramda';
 
 import Task from 'components/Task';
+import ColumnHeader from 'components/ColumnHeader';
 import TasksRepository from 'repositories/TasksRepository';
 
 const STATES = [
@@ -49,7 +50,21 @@ const TaskBoard = () => {
       perPage,
     });
 
-  const loadColumnInitial = (state, page = 1, perPage = 10) => {
+  const PER_PAGE = 10;
+
+  const loadColumnMore = (state, page = 1, perPage = PER_PAGE) => {
+    loadColumn(state, page, perPage).then(({ data }) => {
+      setBoardCards((prevState) => ({
+        ...prevState,
+        [state]: {
+          cards: [...prevState[state].cards, ...data.items],
+          meta: { ...data.meta, count: prevState[state].meta.count + data.meta.count },
+        },
+      }));
+    });
+  };
+
+  const loadColumnInitial = (state, page = 1, perPage = PER_PAGE) => {
     loadColumn(state, page, perPage).then(({ data }) => {
       setBoardCards((prevState) => ({
         ...prevState,
@@ -66,7 +81,11 @@ const TaskBoard = () => {
   useEffect(() => generateBoard(), [boardCards]);
 
   return (
-    <Board disableColumnDrag renderCard={(card) => <Task task={card} />}>
+    <Board
+      renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
+      renderCard={(card) => <Task task={card} />}
+      disableColumnDrag
+    >
       {board}
     </Board>
   );
