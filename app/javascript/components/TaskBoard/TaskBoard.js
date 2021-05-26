@@ -80,10 +80,32 @@ const TaskBoard = () => {
   useEffect(() => loadBoard(), []);
   useEffect(() => generateBoard(), [boardCards]);
 
+  const handleCardDragEnd = (task, source, destination) => {
+    const transition = task.transitions.find(({ to }) => destination.toColumnId === to);
+    if (!transition) {
+      return null;
+    }
+
+    return TasksRepository.update(task.id, {
+      task: {
+        stateEvent: transition.event,
+      },
+    })
+      .then(() => {
+        loadColumnInitial(destination.toColumnId);
+        loadColumnInitial(source.fromColumnId);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-alert
+        alert(`Move failed! ${error.message}`);
+      });
+  };
+
   return (
     <Board
       renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
       renderCard={(card) => <Task task={card} />}
+      onCardDragEnd={handleCardDragEnd}
       disableColumnDrag
     >
       {board}
