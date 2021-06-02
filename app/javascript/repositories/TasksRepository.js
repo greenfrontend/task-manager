@@ -14,7 +14,7 @@ export default {
 
   update(id, task = {}) {
     const path = routes.apiV1TaskPath(id);
-    return FetchHelper.put(path, task);
+    return FetchHelper.put(path, { task });
   },
 
   create(task = {}) {
