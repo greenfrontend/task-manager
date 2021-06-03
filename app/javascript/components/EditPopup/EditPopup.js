@@ -6,7 +6,7 @@ import { Modal, Card, CardHeader, CardContent, CardActions, CircularProgress, Bu
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-import Form from './Form';
+import Form from 'components/Form';
 
 import useStyles from './useStyles';
 
