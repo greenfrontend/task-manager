@@ -5,6 +5,8 @@ import { propOr } from 'ramda';
 
 import Task from 'components/Task';
 import ColumnHeader from 'components/ColumnHeader';
+import AddPopup from 'components/AddPopup';
+import TaskForm from 'forms/TaskForm';
 import TasksRepository from 'repositories/TasksRepository';
 
 import Fab from '@material-ui/core/Fab';
@@ -21,6 +23,11 @@ const STATES = [
   { key: 'archived', value: 'Archived' },
 ];
 
+const MODES = {
+  ADD: 'add',
+  NONE: 'none',
+};
+
 const initialBoard = {
   columns: STATES.map((column) => ({
     id: column.key,
@@ -33,6 +40,7 @@ const initialBoard = {
 const TaskBoard = () => {
   const [board, setBoard] = useState(initialBoard);
   const [boardCards, setBoardCards] = useState([]);
+  const [mode, setMode] = useState(MODES.NONE);
 
   const styles = useStyles();
 
@@ -103,11 +111,28 @@ const TaskBoard = () => {
       });
   };
 
+  const handleOpenAddPopup = () => {
+    setMode(MODES.ADD);
+  };
+
+  const handleClose = () => {
+    setMode(MODES.NONE);
+  };
+
+  const handleTaskCreate = (params) => {
+    const attributes = TaskForm.attributesToSubmit(params);
+    return TasksRepository.create(attributes).then(({ data: { task } }) => {
+      loadColumnInitial(task.state);
+      handleClose();
+    });
+  };
+
   return (
     <>
-      <Fab className={styles.addButton} color="primary" aria-label="add">
+      <Fab onClick={handleOpenAddPopup} className={styles.addButton} color="primary" aria-label="add">
         <AddIcon />
       </Fab>
+      {mode === MODES.ADD && <AddPopup onCreateCard={handleTaskCreate} onClose={handleClose} />}
       <Board
         renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
         renderCard={(card) => <Task task={card} />}
