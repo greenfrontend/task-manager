@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { has } from 'ramda';
+import { has, path } from 'ramda';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -33,7 +33,11 @@ const AddPopup = ({ onClose, onCreateCard }) => {
       }
     });
   };
-  const handleChangeTextField = (fieldName) => (event) => changeTask({ ...task, [fieldName]: event.target.value });
+  const handleChangeTextField = (event) => {
+    const name = path(['target', 'name'], event);
+    const value = path(['target', 'value'], event);
+    return changeTask({ ...task, [name]: value });
+  };
   const styles = useStyles();
 
   return (
@@ -50,18 +54,20 @@ const AddPopup = ({ onClose, onCreateCard }) => {
         <CardContent>
           <div className={styles.form}>
             <TextField
+              name="name"
               error={has('name', errors)}
               helperText={errors.name}
-              onChange={handleChangeTextField('name')}
+              onChange={handleChangeTextField}
               value={task.name}
               label="Name"
               required
               margin="dense"
             />
             <TextField
+              name="description"
               error={has('description', errors)}
               helperText={errors.description}
-              onChange={handleChangeTextField('description')}
+              onChange={handleChangeTextField}
               value={task.description}
               label="Description"
               required
