@@ -7,6 +7,8 @@ import Task from 'components/Task';
 import ColumnHeader from 'components/ColumnHeader';
 import AddPopup from 'components/AddPopup';
 import TaskForm from 'forms/TaskForm';
+import EditPopup from 'components/EditPopup';
+
 import TasksRepository from 'repositories/TasksRepository';
 
 import Fab from '@material-ui/core/Fab';
@@ -26,6 +28,7 @@ const STATES = [
 const MODES = {
   ADD: 'add',
   NONE: 'none',
+  EDIT: 'edit',
 };
 
 const initialBoard = {
@@ -41,6 +44,7 @@ const TaskBoard = () => {
   const [board, setBoard] = useState(initialBoard);
   const [boardCards, setBoardCards] = useState([]);
   const [mode, setMode] = useState(MODES.NONE);
+  const [openedTaskId, setOpenedTaskId] = useState(null);
 
   const styles = useStyles();
 
@@ -127,15 +131,51 @@ const TaskBoard = () => {
     });
   };
 
+  const loadTask = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
+
+  const handleTaskUpdate = (task) => {
+    const attributes = TaskForm.attributesToSubmit(task);
+
+    return TasksRepository.update(task.id, attributes).then(() => {
+      loadColumnInitial(task.state);
+      handleClose();
+    });
+  };
+
+  const handleTaskDestroy = (task) =>
+    TasksRepository.destroy(task.id).then(() => {
+      loadColumnInitial(task.state);
+      handleClose();
+    });
+
+  const handleOpenEditPopup = (task) => {
+    setOpenedTaskId(task.id);
+    setMode(MODES.EDIT);
+  };
+
+  const handleCloseEditPopup = () => {
+    setMode(MODES.NONE);
+    setOpenedTaskId(null);
+  };
+
   return (
     <>
       <Fab onClick={handleOpenAddPopup} className={styles.addButton} color="primary" aria-label="add">
         <AddIcon />
       </Fab>
       {mode === MODES.ADD && <AddPopup onCreateCard={handleTaskCreate} onClose={handleClose} />}
+      {mode === MODES.EDIT && (
+        <EditPopup
+          onLoadCard={loadTask}
+          onCardDestroy={handleTaskDestroy}
+          onCardUpdate={handleTaskUpdate}
+          onClose={handleCloseEditPopup}
+          cardId={openedTaskId}
+        />
+      )}
       <Board
         renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
-        renderCard={(card) => <Task task={card} />}
+        renderCard={(card) => <Task onClick={handleOpenEditPopup} task={card} />}
         onCardDragEnd={handleCardDragEnd}
         disableColumnDrag
       >
