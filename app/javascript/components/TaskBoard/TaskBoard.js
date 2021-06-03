@@ -7,6 +7,10 @@ import Task from 'components/Task';
 import ColumnHeader from 'components/ColumnHeader';
 import TasksRepository from 'repositories/TasksRepository';
 
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import useStyles from './useStyles';
+
 const STATES = [
   { key: 'new_task', value: 'New' },
   { key: 'in_development', value: 'In Dev' },
@@ -29,6 +33,8 @@ const initialBoard = {
 const TaskBoard = () => {
   const [board, setBoard] = useState(initialBoard);
   const [boardCards, setBoardCards] = useState([]);
+
+  const styles = useStyles();
 
   const generateBoard = () => {
     const generatedBoard = {
@@ -98,14 +104,19 @@ const TaskBoard = () => {
   };
 
   return (
-    <Board
-      renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
-      renderCard={(card) => <Task task={card} />}
-      onCardDragEnd={handleCardDragEnd}
-      disableColumnDrag
-    >
-      {board}
-    </Board>
+    <>
+      <Fab className={styles.addButton} color="primary" aria-label="add">
+        <AddIcon />
+      </Fab>
+      <Board
+        renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
+        renderCard={(card) => <Task task={card} />}
+        onCardDragEnd={handleCardDragEnd}
+        disableColumnDrag
+      >
+        {board}
+      </Board>
+    </>
   );
 };
 
