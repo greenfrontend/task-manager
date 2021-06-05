@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { has, path } from 'ramda';
 
+import UserSelect from 'components/UserSelect';
+
 import TextField from '@material-ui/core/TextField';
 
 import useStyles from './useStyles';
@@ -12,6 +14,7 @@ const Form = ({ errors, onChange, task }) => {
     const value = path(['target', 'value'], event);
     return onChange({ ...task, [name]: value });
   };
+  const handleChangeSelectField = (name, value) => onChange({ ...task, [name]: value });
   const styles = useStyles();
 
   return (
@@ -36,6 +39,26 @@ const Form = ({ errors, onChange, task }) => {
         required
         multiline
         margin="dense"
+      />
+      <UserSelect
+        name="author"
+        label="Author"
+        value={task.author}
+        onChange={handleChangeSelectField}
+        isDisabled={false}
+        isRequired
+        error={has('author', errors)}
+        helperText={errors.author}
+      />
+      <UserSelect
+        name="assignee"
+        label="Assignee"
+        value={task.assignee}
+        onChange={handleChangeSelectField}
+        isDisabled={false}
+        isRequired
+        error={has('assignee', errors)}
+        helperText={errors.author}
       />
     </form>
   );
