@@ -13,11 +13,11 @@ import useStyles from './useStyles';
 const Task = ({ task, onClick }) => {
   const styles = useStyles();
 
-  const handleClick = () => {
+  const handleTaskEditClick = () => {
     onClick(task);
   };
   const action = (
-    <IconButton onClick={handleClick}>
+    <IconButton onClick={handleTaskEditClick}>
       <EditIcon />
     </IconButton>
   );

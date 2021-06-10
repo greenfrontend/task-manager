@@ -46,6 +46,8 @@ const EditPopup = ({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate })
   };
   const isLoading = isNil(task);
 
+  const isButtonDisabled = isLoading || isSaving;
+
   return (
     <Modal className={styles.modal} open onClose={onClose}>
       <Card className={styles.root}>
@@ -68,7 +70,7 @@ const EditPopup = ({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate })
         </CardContent>
         <CardActions className={styles.actions}>
           <Button
-            disabled={isLoading || isSaving}
+            disabled={isButtonDisabled}
             onClick={handleCardUpdate}
             size="small"
             variant="contained"
@@ -77,7 +79,7 @@ const EditPopup = ({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate })
             Update
           </Button>
           <Button
-            disabled={isLoading || isSaving}
+            disabled={isButtonDisabled}
             onClick={handleCardDestroy}
             size="small"
             variant="contained"
