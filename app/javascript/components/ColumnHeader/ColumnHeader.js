@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { getNumberOrPlaceholder } from 'utils/numbers';
 import IconButton from '@material-ui/core/IconButton';
 import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 
@@ -20,17 +20,15 @@ const ColumnHeader = ({ column, onLoadMore }) => {
 
   const handleLoadMore = () => onLoadMore(id, currentPage + 1);
 
-  const showUpdateButton = count < totalCount;
-
-  const totalCountToShow = !Number.isNaN(totalCount) ? totalCount : '...';
+  const isUpdateButtonVisible = count < totalCount;
 
   return (
     <div className={styles.root}>
       <div className={styles.title}>
-        <b>{title}</b> ({count}/{totalCountToShow})
+        <b>{title}</b> ({count}/{getNumberOrPlaceholder(totalCount)})
       </div>
       <div className={styles.actions}>
-        {showUpdateButton && (
+        {isUpdateButtonVisible && (
           <IconButton aria-label="Load more" onClick={() => handleLoadMore()}>
             <SystemUpdateAltIcon fontSize="small" />
           </IconButton>
