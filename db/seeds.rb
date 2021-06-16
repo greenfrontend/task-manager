@@ -17,3 +17,12 @@ admin.save
   u.password = "#{i}"
   u.save
 end
+
+30.times do |i|
+  u = Manager.last
+  task = Task.new
+  task.name = "Task#{i}"
+  task.description = "description of the task #{i}"
+  task.author = u
+  task.save
+end
