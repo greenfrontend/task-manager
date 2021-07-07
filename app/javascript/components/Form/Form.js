@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { has, path } from 'ramda';
 
-import TextField from '@material-ui/core/TextField';
+import UserSelect from 'components/UserSelect';
 
+import TextField from '@material-ui/core/TextField';
+import TaskPresenter from 'presenters/TaskPresenter';
 import useStyles from './useStyles';
 
 const Form = ({ errors, onChange, task }) => {
@@ -12,6 +14,7 @@ const Form = ({ errors, onChange, task }) => {
     const value = path(['target', 'value'], event);
     return onChange({ ...task, [name]: value });
   };
+  const handleChangeSelectField = (name, value) => onChange({ ...task, [name]: value });
   const styles = useStyles();
 
   return (
@@ -21,7 +24,7 @@ const Form = ({ errors, onChange, task }) => {
         error={has('name', errors)}
         helperText={errors.name}
         onChange={handleChangeTextField}
-        value={task.name}
+        value={TaskPresenter.name(task)}
         label="Name"
         required
         margin="dense"
@@ -31,11 +34,31 @@ const Form = ({ errors, onChange, task }) => {
         error={has('description', errors)}
         helperText={errors.description}
         onChange={handleChangeTextField}
-        value={task.description}
+        value={TaskPresenter.description(task)}
         label="Description"
         required
         multiline
         margin="dense"
+      />
+      <UserSelect
+        name="author"
+        label="Author"
+        value={TaskPresenter.author(task)}
+        onChange={handleChangeSelectField}
+        isDisabled={false}
+        isRequired
+        error={has('author', errors)}
+        helperText={errors.author}
+      />
+      <UserSelect
+        name="assignee"
+        label="Assignee"
+        value={TaskPresenter.assignee(task)}
+        onChange={handleChangeSelectField}
+        isDisabled={false}
+        isRequired
+        error={has('assignee', errors)}
+        helperText={errors.author}
       />
     </form>
   );
@@ -43,7 +66,7 @@ const Form = ({ errors, onChange, task }) => {
 
 Form.propTypes = {
   onChange: PropTypes.func.isRequired,
-  task: PropTypes.shape().isRequired,
+  task: TaskPresenter.shape().isRequired,
   errors: PropTypes.shape({
     name: PropTypes.arrayOf(PropTypes.string),
     description: PropTypes.arrayOf(PropTypes.string),
