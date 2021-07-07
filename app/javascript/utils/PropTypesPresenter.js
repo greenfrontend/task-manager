@@ -7,7 +7,7 @@ export default class PropTypesPresenter {
 
     pipe(
       keys,
-      forEach(name => {
+      forEach((name) => {
         this[name] = prop(name);
       }),
     )(propTypes);

@@ -9,11 +9,11 @@ export default new PropTypesPresenter(
     state: PropTypes.string,
     transitions: PropTypes.array,
     assignee: PropTypes.object,
-    author: PropTypes.object
+    author: PropTypes.object,
   },
   {
     cardHeader(task) {
-      return `Task # ${this.id(task)} [${this.name(task)}]`
-    }
+      return `Task # ${this.id(task)} [${this.name(task)}]`;
+    },
   },
 );

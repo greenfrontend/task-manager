@@ -57,7 +57,7 @@ const EditPopup = ({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate })
               <CloseIcon />
             </IconButton>
           }
-          title={isLoading ? 'Your task is loading. Please be patient.' : TaskPresenter.cardHeader(task) }
+          title={isLoading ? 'Your task is loading. Please be patient.' : TaskPresenter.cardHeader(task)}
         />
         <CardContent>
           {isLoading ? (
