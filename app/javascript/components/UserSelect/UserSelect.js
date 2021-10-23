@@ -27,7 +27,7 @@ const UserSelect = ({ name, error, label, isClearable, isDisabled, isRequired, o
             loadOptions={handleLoadOptions}
             defaultOptions
             getOptionLabel={(user) => UserPresenter.fullName(user)}
-            getOptionValue={(user) => user.id}
+            getOptionValue={(user) => UserPresenter.id(user)}
             isDisabled={isDisabled}
             isClearable={isClearable}
             defaultValue={value}

@@ -11,5 +11,8 @@ export default new PropTypesPresenter(
     fullName(user) {
       return `${this.firstName(user)} ${this.lastName(user)}`;
     },
+    id(user) {
+      return user.id;
+    },
   },
 );
