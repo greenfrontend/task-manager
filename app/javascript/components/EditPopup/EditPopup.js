@@ -10,39 +10,33 @@ import Form from 'components/Form';
 import TaskPresenter from 'presenters/TaskPresenter';
 import useStyles from './useStyles';
 
-const EditPopup = ({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate }) => {
-  const [task, setTask] = useState(null);
+const EditPopup = ({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate, task, setTask }) => {
   const [isSaving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
   const styles = useStyles();
 
   useEffect(() => {
-    onLoadCard(cardId).then(setTask);
+    onLoadCard(cardId);
   }, []);
 
-  const handleCardUpdate = () => {
+  const handleCardUpdate = async () => {
     setSaving(true);
 
-    onCardUpdate(task).catch((error) => {
+    try {
+      await onCardUpdate(task);
+    } catch (error) {
       setSaving(false);
       setErrors(error || {});
 
-      if (error instanceof Error) {
-        // eslint-disable-next-line no-alert
-        alert(`Update Failed! Error: ${error.message}`);
-      }
-    });
+      // eslint-disable-next-line no-alert
+      alert(`Update Failed! Error: ${error.message}`);
+    }
   };
 
-  const handleCardDestroy = () => {
+  const handleCardDestroy = async () => {
     setSaving(true);
 
-    onCardDestroy(task).catch((error) => {
-      setSaving(false);
-
-      // eslint-disable-next-line no-alert
-      alert(`Destrucion Failed! Error: ${error.message}`);
-    });
+    await onCardDestroy(task);
   };
   const isLoading = isNil(task);
 
@@ -99,6 +93,8 @@ EditPopup.propTypes = {
   onCardDestroy: PropTypes.func.isRequired,
   onLoadCard: PropTypes.func.isRequired,
   onCardUpdate: PropTypes.func.isRequired,
+  setTask: PropTypes.func.isRequired,
+  task: PropTypes.oneOfType([TaskPresenter.shape().isRequired, PropTypes.oneOf([null]).isRequired]).isRequired,
 };
 
 export default EditPopup;

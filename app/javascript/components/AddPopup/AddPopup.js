@@ -18,18 +18,18 @@ const AddPopup = ({ onClose, onCreateCard }) => {
   const [task, changeTask] = useState(TaskForm.defaultAttributes());
   const [isSaving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
-  const handleCreate = () => {
+  const handleCreate = async () => {
     setSaving(true);
 
-    onCreateCard(task).catch((error) => {
+    try {
+      await onCreateCard(task);
+    } catch (error) {
       setSaving(false);
       setErrors(error || {});
 
-      if (error instanceof Error) {
-        // eslint-disable-next-line no-alert
-        alert(`Creation Failed! Error: ${error.message}`);
-      }
-    });
+      // eslint-disable-next-line no-alert
+      alert(`Creation Failed! Error: ${error.message}`);
+    }
   };
 
   const styles = useStyles();
