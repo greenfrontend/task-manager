@@ -1,10 +1,15 @@
 ENV['RAILS_ENV'] ||= 'test'
 
 require 'simplecov'
-SimpleCov.start('rails')
+require 'simplecov-lcov'
 
-require 'coveralls'
-Coveralls.wear!
+SimpleCov::Formatter::LcovFormatter.config do |c|
+  c.report_with_single_file = true
+  c.output_directory = 'coverage'
+  c.lcov_file_name = 'lcov.info'
+end
+SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
+SimpleCov.start('rails')
 
 require_relative '../config/environment'
 require 'rails/test_help'
