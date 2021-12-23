@@ -20,7 +20,7 @@ jobs:
         run: docker-compose --file docker-compose.ci.yml run ci
 
       - name: Debug
-        run: ls -la coverage
+        run: ls -la
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
