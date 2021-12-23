@@ -5,6 +5,8 @@ services:
     image: postgres:10.3-alpine
   ci:
     build: .
+    volumes:
+      - .:/task_manager
     depends_on:
       - db
     environment:
@@ -12,4 +14,4 @@ services:
       - RAILS_ENV
       - DATABASE_HOST=db
       - DATABASE_USERNAME=postgres
-    command: sh -c "bundle exec rails webpacker:install && bundle exec rails db:create db:migrate && bundle exec rake test"
+    command: sh -c "bundle exec rails webpacker:install && bundle exec rails db:create db:migrate && bundle exec rake test && ls -la coverage"
