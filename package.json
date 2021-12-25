@@ -5,6 +5,9 @@
     "lint": "eslint app/javascript",
     "test": "jest"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "@asseinfo/react-kanban": "^2.2.0",
     "@babel/preset-react": "^7.13.13",
