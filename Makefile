@@ -14,3 +14,8 @@ shell:
 
 lint:
 	yarn run lint
+
+test:
+	bin/rails test
+
+.PHONY: test
