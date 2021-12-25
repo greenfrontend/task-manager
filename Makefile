@@ -18,4 +18,10 @@ lint:
 test:
 	bin/rails test
 
+migrate:
+	heroku run rake db:migrate
+
+console:
+	heroku run rails console
+
 .PHONY: test
