@@ -10,6 +10,7 @@ services:
     depends_on:
       - db
     environment:
+      - CI
       - COVERAGE
       - RAILS_ENV
       - DATABASE_HOST=db
