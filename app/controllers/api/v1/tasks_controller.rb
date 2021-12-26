@@ -28,7 +28,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
 
   def update
     task = Task.find(params[:id])
-    
+
     if task.update(task_params)
       UserMailer.with({ user: current_user, task: task }).task_edited.deliver_now
     end
@@ -38,7 +38,10 @@ class Api::V1::TasksController < Api::V1::ApplicationController
 
   def destroy
     task = Task.find(params[:id])
-    task.destroy
+
+    if task.destroy
+      UserMailer.with({ user: current_user, task: task }).task_deleted.deliver_now
+    end
 
     respond_with(task)
   end
