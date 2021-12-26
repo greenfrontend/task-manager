@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root :to => "web/boards#show"
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   namespace :admin do
     resources :users
