@@ -1,11 +1,25 @@
 ENV['RAILS_ENV'] ||= 'test'
+
+if ENV['CI']
+  require 'simplecov'
+  require 'simplecov-lcov'
+
+  SimpleCov::Formatter::LcovFormatter.config do |c|
+    c.report_with_single_file = true
+    c.output_directory = 'coverage'
+    c.lcov_file_name = 'lcov.info'
+  end
+  SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
+  SimpleCov.start('rails')
+end
+
 require_relative '../config/environment'
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
   # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+  # parallelize(workers: :number_of_processors)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
