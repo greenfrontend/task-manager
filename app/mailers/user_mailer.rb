@@ -19,4 +19,11 @@ class UserMailer < ApplicationMailer
 
     mail(to: user.email, subject: "Task #{@task.id} was deleted")
   end
+
+  def token_created
+    user = params[:user]
+    @link = params[:link]
+
+    mail(to: user.email, subject: "Reset your password")
+  end
 end

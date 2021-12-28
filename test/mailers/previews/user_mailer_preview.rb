@@ -12,6 +12,10 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.with(params).task_deleted
   end
 
+  def token_created
+    UserMailer.with({ link: '/some', user: User.first }).token_created
+  end
+
   private
 
   def params

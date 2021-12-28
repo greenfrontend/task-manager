@@ -11,4 +11,10 @@ FactoryBot.define do
   sequence :expired_at do |_n|
     Time.now + 1.week.seconds
   end
+  sequence :reset_password_token do |_n|
+    'token'
+  end
+  sequence :reset_password_token_created_at do |_n|
+    Time.now
+  end  
 end

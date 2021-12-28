@@ -17,5 +17,7 @@ Rails.application.routes.draw do
     resource :board, only: :show
     resource :session, only: [:new, :create, :destroy]
     resources :developers, only: [:new, :create]
+    resource :forgot_password, only: [:new, :create]
+    resource :password, only: [:edit, :update]
   end
 end

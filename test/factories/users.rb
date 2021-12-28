@@ -6,6 +6,8 @@ FactoryBot.define do
     email
     avatar
     type { '' }
+    reset_password_token
+    reset_password_token_created_at
 
     factory :admin do
       type { 'Admin' }
