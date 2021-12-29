@@ -16,5 +16,5 @@ FactoryBot.define do
   end
   sequence :reset_password_token_created_at do |_n|
     Time.now
-  end  
+  end
 end

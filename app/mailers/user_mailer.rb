@@ -24,6 +24,6 @@ class UserMailer < ApplicationMailer
     user = params[:user]
     @link = params[:link]
 
-    mail(to: user.email, subject: "Reset your password")
+    mail(to: user.email, subject: 'Reset your password')
   end
 end

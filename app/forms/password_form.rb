@@ -3,7 +3,7 @@ class PasswordForm
 
   attr_accessor(
     :password,
-    :password_confirmation
+    :password_confirmation,
   )
 
   validates :password, :password_confirmation, presence: true
@@ -11,7 +11,7 @@ class PasswordForm
 
   def passwords_match
     if password != password_confirmation
-      errors.add(:password_confirmation, "passwords should be equal")
+      errors.add(:password_confirmation, 'passwords should be equal')
     end
   end
 end

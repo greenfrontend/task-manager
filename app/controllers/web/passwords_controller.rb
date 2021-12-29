@@ -3,12 +3,12 @@ class Web::PasswordsController < Web::ApplicationController
     token = params[:token]
 
     user = find_user(token)
-    return redirect_to root_path, notice: 'User not found' unless user
+    return redirect_to(root_path, notice: 'User not found') unless user
 
     token_hours = time_diff_hours(Time.current, user.reset_password_token_created_at)
     expired = token_hours > 24
     if expired
-      return redirect_to root_path, notice: 'Password reset token is expired'
+      return redirect_to(root_path, notice: 'Password reset token is expired')
     end
 
     @password = PasswordForm.new
@@ -19,15 +19,15 @@ class Web::PasswordsController < Web::ApplicationController
     return render(:edit) unless @password.valid?
 
     user = find_user(params[:token])
-    return redirect_to root_path, notice: 'User not found' unless user
+    return redirect_to(root_path, notice: 'User not found') unless user
 
-    user.update({ 
-      password: @password.password,
-      reset_password_token: nil,
-      reset_password_token_created_at: nil
-    })
-    
-    redirect_to root_path, notice: 'Password was updated'
+    user.update({
+                  password: @password.password,
+                  reset_password_token: nil,
+                  reset_password_token_created_at: nil,
+                })
+
+    redirect_to(root_path, notice: 'Password was updated')
   end
 
   private
