@@ -142,6 +142,7 @@ GEM
     mini_portile2 (2.5.0)
     minitest (5.14.4)
     msgpack (1.4.2)
+    newrelic_rpm (8.2.0)
     nio4r (2.5.7)
     nokogiri (1.11.2)
       mini_portile2 (~> 2.5.0)
@@ -301,6 +302,7 @@ DEPENDENCIES
   js-routes
   kaminari
   listen (~> 3.3)
+  newrelic_rpm
   pg (~> 1.1)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
