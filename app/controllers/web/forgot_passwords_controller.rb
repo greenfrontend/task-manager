@@ -20,7 +20,7 @@ class Web::ForgotPasswordsController < Web::ApplicationController
     UserMailer.with({
                       user: user,
                       link: link,
-                    }).token_created.deliver_now
+                    }).token_created.deliver_later
 
     redirect_to(:root, notice: 'Link for password reset was sent to your email')
   end
