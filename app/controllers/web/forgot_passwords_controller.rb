@@ -17,10 +17,7 @@ class Web::ForgotPasswordsController < Web::ApplicationController
                   reset_password_token_created_at: Time.current,
                 })
 
-    UserMailer.with({
-                      user: user,
-                      link: link,
-                    }).token_created.deliver_now
+    SendForgotPasswordTokenNotificationJob.perform_async(user.id, link)
 
     redirect_to(:root, notice: 'Link for password reset was sent to your email')
   end

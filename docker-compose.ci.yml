@@ -9,10 +9,31 @@ services:
       - .:/task_manager
     depends_on:
       - db
+      - redis
+      - sidekiq
     environment:
       - CI
       - COVERAGE
       - RAILS_ENV
       - DATABASE_HOST=db
       - DATABASE_USERNAME=postgres
+      - REDIS_URL=redis://redis
     command: sh -c "bundle exec rails webpacker:install && bundle exec rails db:create db:migrate && bundle exec rake test"
+
+  redis:
+    image: redis:5.0.9-alpine
+
+  sidekiq:
+    build: .
+    command: sh -c "bundle exec sidekiq -C /task_manager/config/sidekiq.yml"
+    environment:
+      - CI
+      - COVERAGE
+      - RAILS_ENV
+      - DATABASE_HOST=db
+      - DATABASE_USERNAME=postgres
+      - REDIS_URL=redis://redis
+    volumes:
+      - .:/task_manager
+    depends_on:
+      - redis
