@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { has, path } from 'ramda';
+import { has, path, isNil } from 'ramda';
 
 import UserSelect from 'components/UserSelect';
+import ImageUpload from 'components/ImageUpload';
 
-import TextField from '@material-ui/core/TextField';
+import { TextField, Button } from '@material-ui/core';
 import TaskPresenter from 'presenters/TaskPresenter';
 import useStyles from './useStyles';
+import TasksRepository from 'repositories/TasksRepository';
 
 const Form = ({ errors, onChange, task }) => {
   const handleChangeTextField = (event) => {
@@ -16,6 +18,32 @@ const Form = ({ errors, onChange, task }) => {
   };
   const handleChangeSelectField = (name, value) => onChange({ ...task, [name]: value });
   const styles = useStyles();
+
+  const onAttachImage = async (json) => {
+    try {
+      const response = await TasksRepository.putFormData(task.id, json);
+      onChange({
+        ...task,
+        imageUrl: response.data.task.imageUrl,
+      });
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+    }
+  };
+  const onRemoveImage = async () => {
+    try {
+      await TasksRepository.removeImage(task.id);
+      onChange({
+        ...task,
+        imageUrl: null,
+      });
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log(error);
+    }
+  };
+  const imageUrl = TaskPresenter.imageUrl(task);
 
   return (
     <form className={styles.form}>
@@ -60,6 +88,18 @@ const Form = ({ errors, onChange, task }) => {
         error={has('assignee', errors)}
         helperText={errors.author}
       />
+      {isNil(imageUrl) ? (
+        <div className={styles.imageUploadContainer}>
+          <ImageUpload onUpload={onAttachImage} />
+        </div>
+      ) : (
+        <div className={styles.previewContainer}>
+          <img className={styles.preview} src={imageUrl} alt="Attachment" />
+          <Button variant="contained" size="small" color="primary" onClick={onRemoveImage}>
+            Remove image
+          </Button>
+        </div>
+      )}
     </form>
   );
 };
