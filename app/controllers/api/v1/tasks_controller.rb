@@ -1,7 +1,7 @@
 class Api::V1::TasksController < Api::V1::ApplicationController
   def index
     tasks = Task.all.
-      includes([:author, :assignee]).
+      includes([:author, :assignee, :image_attachment]).
       ransack(ransack_params.merge('s' => 'created_at DESC')).
       result.
       page(page).

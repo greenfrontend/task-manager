@@ -25,5 +25,8 @@ export default new PropTypesPresenter(
     cardHeader(task) {
       return `Task # ${this.id(task)} [${this.name(task)}]`;
     },
+    imageUrl(task) {
+      return task.imageUrl;
+    },
   },
 );

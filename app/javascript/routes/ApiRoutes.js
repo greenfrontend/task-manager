@@ -540,6 +540,15 @@ export const apiV1UsersPath = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"api"],[2,
 
 /**
  * Generates rails route to
+ * /api/v1/tasks/:id/attach_image(.:format)
+ * @param {any} id
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const attachImageApiV1TaskPath = __jsr.r({"id":{"r":true},"format":{}}, [2,[7,"/"],[2,[6,"api"],[2,[7,"/"],[2,[6,"v1"],[2,[7,"/"],[2,[6,"tasks"],[2,[7,"/"],[2,[3,"id"],[2,[7,"/"],[2,[6,"attach_image"],[1,[2,[8,"."],[3,"format"]]]]]]]]]]]]]);
+
+/**
+ * Generates rails route to
  * /board(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
@@ -565,12 +574,70 @@ export const editAdminUserPath = __jsr.r({"id":{"r":true},"format":{}}, [2,[7,"/
 
 /**
  * Generates rails route to
+ * /password/edit(.:format)
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const editPasswordPath = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"password"],[2,[7,"/"],[2,[6,"edit"],[1,[2,[8,"."],[3,"format"]]]]]]]);
+
+/**
+ * Generates rails route to
  * /rails/conductor/action_mailbox/inbound_emails/:id/edit(.:format)
  * @param {any} id
  * @param {object | undefined} options
  * @returns {string} route path
  */
 export const editRailsConductorInboundEmailPath = __jsr.r({"id":{"r":true},"format":{}}, [2,[7,"/"],[2,[6,"rails"],[2,[7,"/"],[2,[6,"conductor"],[2,[7,"/"],[2,[6,"action_mailbox"],[2,[7,"/"],[2,[6,"inbound_emails"],[2,[7,"/"],[2,[3,"id"],[2,[7,"/"],[2,[6,"edit"],[1,[2,[8,"."],[3,"format"]]]]]]]]]]]]]]]);
+
+/**
+ * Generates rails route to
+ * /forgot_password(.:format)
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const forgotPasswordPath = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"forgot_password"],[1,[2,[8,"."],[3,"format"]]]]]);
+
+/**
+ * Generates rails route to
+ * /letter_opener
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const letterOpenerWebPath = __jsr.r({}, [2,[7,"/"],[6,"letter_opener"]]);
+
+/**
+ * Generates rails route to
+ * /letter_opener/
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const letterOpenerWebLettersPath = __jsr.r({}, [2,[2,[7,"/"],[6,"letter_opener"]],[7,"/"]]);
+
+/**
+ * Generates rails route to
+ * /letter_opener/clear(.:format)
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const letterOpenerWebClearLettersPath = __jsr.r({"format":{}}, [2,[2,[2,[7,"/"],[6,"letter_opener"]],[7,"/"]],[2,[6,"clear"],[1,[2,[8,"."],[3,"format"]]]]]);
+
+/**
+ * Generates rails route to
+ * /letter_opener/:id(/:style)(.:format)
+ * @param {any} id
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const letterOpenerWebLetterPath = __jsr.r({"id":{"r":true},"style":{},"format":{}}, [2,[2,[2,[7,"/"],[6,"letter_opener"]],[7,"/"]],[2,[3,"id"],[2,[1,[2,[7,"/"],[3,"style"]]],[1,[2,[8,"."],[3,"format"]]]]]]);
+
+/**
+ * Generates rails route to
+ * /letter_opener/:id/delete(.:format)
+ * @param {any} id
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const letterOpenerWebDeleteLetterPath = __jsr.r({"id":{"r":true},"format":{}}, [2,[2,[2,[7,"/"],[6,"letter_opener"]],[7,"/"]],[2,[3,"id"],[2,[7,"/"],[2,[6,"delete"],[1,[2,[8,"."],[3,"format"]]]]]]]);
 
 /**
  * Generates rails route to
@@ -587,6 +654,14 @@ export const newAdminUserPath = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"admin"]
  * @returns {string} route path
  */
 export const newDeveloperPath = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"developers"],[2,[7,"/"],[2,[6,"new"],[1,[2,[8,"."],[3,"format"]]]]]]]);
+
+/**
+ * Generates rails route to
+ * /forgot_password/new(.:format)
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const newForgotPasswordPath = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"forgot_password"],[2,[7,"/"],[2,[6,"new"],[1,[2,[8,"."],[3,"format"]]]]]]]);
 
 /**
  * Generates rails route to
@@ -611,6 +686,14 @@ export const newRailsConductorInboundEmailSourcePath = __jsr.r({"format":{}}, [2
  * @returns {string} route path
  */
 export const newSessionPath = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"session"],[2,[7,"/"],[2,[6,"new"],[1,[2,[8,"."],[3,"format"]]]]]]]);
+
+/**
+ * Generates rails route to
+ * /password(.:format)
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const passwordPath = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"password"],[1,[2,[8,"."],[3,"format"]]]]]);
 
 /**
  * Generates rails route to
@@ -788,6 +871,15 @@ export const railsServiceBlobProxyPath = __jsr.r({"signed_id":{"r":true},"filena
 
 /**
  * Generates rails route to
+ * /api/v1/tasks/:id/remove_image(.:format)
+ * @param {any} id
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const removeImageApiV1TaskPath = __jsr.r({"id":{"r":true},"format":{}}, [2,[7,"/"],[2,[6,"api"],[2,[7,"/"],[2,[6,"v1"],[2,[7,"/"],[2,[6,"tasks"],[2,[7,"/"],[2,[3,"id"],[2,[7,"/"],[2,[6,"remove_image"],[1,[2,[8,"."],[3,"format"]]]]]]]]]]]]]);
+
+/**
+ * Generates rails route to
  * /
  * @param {object | undefined} options
  * @returns {string} route path
@@ -801,6 +893,14 @@ export const rootPath = __jsr.r({}, [7,"/"]);
  * @returns {string} route path
  */
 export const sessionPath = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"session"],[1,[2,[8,"."],[3,"format"]]]]]);
+
+/**
+ * Generates rails route to
+ * /admin/sidekiq
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const sidekiqWebPath = __jsr.r({}, [2,[7,"/"],[2,[6,"admin"],[2,[7,"/"],[6,"sidekiq"]]]]);
 
 /**
  * Generates rails route to
