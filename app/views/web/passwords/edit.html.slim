@@ -1,0 +1,10 @@
+h4 Create new password
+
+= simple_form_for @password, url: password_path(token: params[:token]), method: :patch do |f|
+  p
+    = f.input :password, type: :password
+  p
+    = f.input :password_confirmation, type: :password
+
+  p
+    = f.button :submit, "Create"
