@@ -6,7 +6,6 @@ class Web::ForgotPasswordsController < Web::ApplicationController
   def create
     @forgot_password_form = ForgotPasswordForm.new(forgot_form_params)
     user = @forgot_password_form.user
-
     return redirect_to(:new_forgot_password, notice: 'User not found') unless user
 
     token = generate_token
@@ -20,7 +19,7 @@ class Web::ForgotPasswordsController < Web::ApplicationController
     UserMailer.with({
                       user: user,
                       link: link,
-                    }).token_created.deliver_now
+                    }).reset_password_token_created.deliver_now
 
     redirect_to(:root, notice: 'Link for password reset was sent to your email')
   end
@@ -32,7 +31,7 @@ class Web::ForgotPasswordsController < Web::ApplicationController
   end
 
   def generate_token
-    SecureRandom.base58(5)
+    SecureRandom.base58(32)
   end
 
   def generate_forgot_password_link(token)

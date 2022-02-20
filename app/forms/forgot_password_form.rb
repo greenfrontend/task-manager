@@ -5,7 +5,7 @@ class ForgotPasswordForm
     :email,
   )
 
-  validates :email, presence: true, format: { with: /\A\S+@.+\.\S+\z/ }
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   def user
     User.find_by(email: email)
